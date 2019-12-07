@@ -70,7 +70,7 @@ PLATFORM_FINGERPRINT: TPlatformFingerprint = (
   Ord('?'), // unknown endian
 {$ENDIF}
 
-// Next ... bytes are CPU name
+// CPU
 {$IF Defined(CPUAMD64) or Defined(CPUX86_64) or Defined(CPUX64)}
   Ord('8'),Ord('6'),Ord('_'),Ord('6'),Ord('4'),
 {$ELSEIF Defined(CPUIA64)}

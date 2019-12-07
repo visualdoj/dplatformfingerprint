@@ -46,7 +46,7 @@ Format of a fingerprint is simple: first two bytes are ASCII characters of
 decimal digits for `Size` of the fingerprint and other `Size-2` bytes are any
 data (human readable or binary) that determines current platform (cpu, os etc).
 
-Here is possible one example:
+Here is one possible example:
 
 ```
 16_64L86_64linux
