@@ -1,7 +1,7 @@
-unit dplatformfingerprint;
+unit dplatformid;
 
 //
-//  Defines fingerprint of current platform as a global constant.
+//  Defines ID of current platform as a global constant.
 //
 //  Usage: save it before platform-specific encoded binary data for
 //  following checking that whis data is reading on the compatible
@@ -9,15 +9,14 @@ unit dplatformfingerprint;
 //
 //  Example:
 //
-//    Stream.Write(PLATFORM_FINGERPRINT[0], Length(PLATFORM_FINGERPRINT));
+//    Stream.Write(PLATFORM_ID[0], Length(PLATFORM_ID));
 //
 //    ...
 //
-//    Steam.Read(Temp, Length(TPlatformFingerprint));
-//    if Temp <> PLATFORM_FINGERPRINT then begin
-//      // the
+//    Steam.Read(Temp, Length(TPlatformId));
+//    if Temp <> PLATFORM_ID then begin
+//      // Error: wrong platform ID
 //    end;
-//
 //
 //  FPC defines:
 //
@@ -29,15 +28,15 @@ unit dplatformfingerprint;
 interface
 
 type
-  TPlatformFingerprint = array[0 .. 16 - 1] of Byte;
+  TPlatformID = array[0 .. 16 - 1] of Byte;
 
 const
-PLATFORM_FINGERPRINT: TPlatformFingerprint = (
+PLATFORM_ID: TPlatformID = (
   Ord('1'), Ord('6'), // First two bytes are ASCII characters (not bytes) with
-                      // digits determining the size of full fingerprint
+                      // digits determining the size of full ID
                       // (including the digits).
                       //
-                      // Programs may use it to skip fingerprints.
+                      // Programs may use it to skip IDs.
                       //
                       // Only 2 digits allowed.
 
@@ -56,7 +55,7 @@ PLATFORM_FINGERPRINT: TPlatformFingerprint = (
 {$ELSEIF Defined(CPU16)}
   Ord('1'), Ord('6'),
 {$ELSE}
-  {$ERROR Could not generate fingerprint for number of bits of choosen cpu. Add another ELSEIF (recommended) for the bits number or remove this error from source code if that number cannot be determined through compiler or user defines.}
+  {$ERROR Could not generate ID for number of bits of choosen cpu. Add another ELSEIF (recommended) for the bits number or remove this error from source code if that number cannot be determined through compiler or user defines.}
   Ord('?'), Ord('?'), // unknown number of bits
 {$ENDIF}
 
@@ -66,7 +65,7 @@ PLATFORM_FINGERPRINT: TPlatformFingerprint = (
 {$ELSEIF Defined(ENDIAN_BIG)}
   Ord('B'),
 {$ELSE}
-  {$ERROR Could not generate fingerprint for endianess of choosen cpu. Add another ELSEIF (recommended) for the endianess or remove this error from source code if the endianess cannot be determined through compiler or user defines.}
+  {$ERROR Could not generate ID for endianess of choosen cpu. Add another ELSEIF (recommended) for the endianess or remove this error from source code if the endianess cannot be determined through compiler or user defines.}
   Ord('?'), // unknown endian
 {$ENDIF}
 
@@ -100,7 +99,7 @@ PLATFORM_FINGERPRINT: TPlatformFingerprint = (
 {$ELSEIF Defined(CPUPOWERPC)}
   Ord('P'),Ord('P'),Ord('C'),Ord('_'),Ord('_'),
 {$ELSE}
-  {$ERROR Could not generate fingerprint for choosen cpu. Add another ELSEIF (recommended) for the cpu or remove this error from source code if the cpu cannot be determined through compiler or user defines.}
+  {$ERROR Could not generate ID for choosen cpu. Add another ELSEIF (recommended) for the cpu or remove this error from source code if the cpu cannot be determined through compiler or user defines.}
   Ord('?'),Ord('?'),Ord('?'),Ord('?'),Ord('?'),
 {$ENDIF}
 
@@ -147,7 +146,7 @@ PLATFORM_FINGERPRINT: TPlatformFingerprint = (
 {$ELSEIF Defined(UNIX)}
   Ord('u'),Ord('n'),Ord('i'),Ord('x'),Ord('_')
 {$ELESE}
-  {$ERROR Could not generate fingerprint for choosen OS. Add another ELSEIF (recommended) for the OS or remove this error from source code if the OS cannot be determined through compiler or user defines.}
+  {$ERROR Could not generate ID for choosen OS. Add another ELSEIF (recommended) for the OS or remove this error from source code if the OS cannot be determined through compiler or user defines.}
   Ord('?'),Ord('?'),Ord('?'),Ord('?'),Ord('?')
 {$ENDIF}
 );

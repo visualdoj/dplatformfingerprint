@@ -2,27 +2,27 @@
 {$MODESWITCH RESULT}
 
 uses
-  dplatformfingerprint,
-  dplatformfingerprint_utils;
+  dplatformid,
+  dplatformid_utils;
 
 var
   S: AnsiString;
-  F: TPlatformFingerprint;
+  F: TPlatformID;
 
-function PlatformFingerprintToString(const F: TPlatformFingerprint): AnsiString;
+function PlatformIDToString(const F: TPlatformID): AnsiString;
 begin
-  SetLength(Result, Length(TPlatformFingerprint));
-  Move(F[0], Result[1], Length(TPlatformFingerprint));
+  SetLength(Result, Length(TPlatformID));
+  Move(F[0], Result[1], Length(TPlatformID));
 end;
 
 begin
-  F := PLATFORM_FINGERPRINT;
-  Writeln(PlatformFingerprintToString(F), ' = ', PlatformFingerprintToString(PLATFORM_FINGERPRINT), ': ', PlatformFingerprintEqual(F, PLATFORM_FINGERPRINT));
-  if PlatformFingerprintGetSize(@F[0]) <> 16 then
+  F := PLATFORM_ID;
+  Writeln(PlatformIDToString(F), ' = ', PlatformIDToString(PLATFORM_ID), ': ', PlatformIDEqual(F, PLATFORM_ID));
+  if PlatformIDGetSize(@F[0]) <> 16 then
     Writeln('ERROR: wrong size');
   F[0] := Ord('1');
   F[1] := Ord('3');
-  Writeln(PlatformFingerprintToString(F), ' = ', PlatformFingerprintToString(PLATFORM_FINGERPRINT), ': ', PlatformFingerprintEqual(F, PLATFORM_FINGERPRINT));
-  if PlatformFingerprintGetSize(@F[0]) <> 13 then
+  Writeln(PlatformIDToString(F), ' = ', PlatformIDToString(PLATFORM_ID), ': ', PlatformIDEqual(F, PLATFORM_ID));
+  if PlatformIDGetSize(@F[0]) <> 13 then
     Writeln('ERROR: wrong size');
 end.
